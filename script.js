@@ -52,7 +52,7 @@ const explanations = {
 // =============== Win Probability Model (First 10 Minutes) =================
 const B0 = -0.39750995;   // intercept
 const B1 =  1.00495136;   // gold10k (golddiffat10 / 1000)
-const B2 = -0.06700415;   // killsDiff10
+const B2 =  0.06700415;   // killsDiff10
 const B3 =  0.79456393;   // firstDragon (1 if your team, else 0)
 
 function logistic(z) {
@@ -390,13 +390,50 @@ const goldValueSpan = document.getElementById("sim-gold-value");
 const killsSlider = document.getElementById("sim-kills");
 const killsValueSpan = document.getElementById("sim-kills-value");
 
+const goldTooltip = document.getElementById("sim-gold-tooltip");
+const killsTooltip = document.getElementById("sim-kills-tooltip");
+
 const probEl = document.getElementById("sim-prob");
 const captionEl = document.getElementById("sim-caption");
 
 function getFirstDragonValue() {
-  const checked = document.querySelector('input[name="sim-firstdragon"]:checked');
-  return checked ? Number(checked.value) : 0;
+  const selected = document.querySelector('input[name="sim-firstdragon"]:checked');
+
+  if (!selected) return 0;
+
+  if (selected.value === "your") return 1;
+  return 0; // enemy or none both map to 0
 }
+
+
+function updateSliderTooltip(slider, tooltip, value, type) {
+  if (!slider || !tooltip) return;
+
+  const min = Number(slider.min);
+  const max = Number(slider.max);
+  const percent = ((value - min) / (max - min)) * 100;
+
+  let text;
+  const absVal = Math.abs(value);
+
+  if (value > 0) {
+    text =
+      type === "gold"
+        ? `Your team +${absVal} gold`
+        : `Your team +${absVal} kills`;
+  } else if (value < 0) {
+    text =
+      type === "gold"
+        ? `Enemy +${absVal} gold`
+        : `Enemy +${absVal} kills`;
+  } else {
+    text = type === "gold" ? "Even gold" : "Even kills";
+  }
+
+  tooltip.textContent = text;
+  tooltip.style.left = `${percent}%`;
+}
+
 
 function updateSim() {
   // sanity check
@@ -411,6 +448,13 @@ function updateSim() {
   // update display
   goldValueSpan.textContent = gold10;
   killsValueSpan.textContent = killsDiff10;
+
+  if (goldTooltip) {
+    updateSliderTooltip(goldSlider, goldTooltip, gold10, "gold");
+  }
+  if (killsTooltip) {
+    updateSliderTooltip(killsSlider, killsTooltip, killsDiff10, "kills");
+  }
 
   const p = predictWinProb({ gold10, killsDiff10, firstDragon });
   const pct = Math.round(p * 100);
@@ -433,6 +477,7 @@ function updateSim() {
 
 // event listeners
 if (goldSlider && killsSlider) {
+
   goldSlider.addEventListener("input", updateSim);
   killsSlider.addEventListener("input", updateSim);
 
@@ -442,5 +487,32 @@ if (goldSlider && killsSlider) {
       radio.addEventListener("change", updateSim);
     });
 
+  // --- gold slider tooltip ---
+  if (goldTooltip) {
+    goldSlider.addEventListener("input", () => {
+      goldTooltip.classList.add("slider-tooltip-visible");
+    });
+    goldSlider.addEventListener("change", () => {
+      goldTooltip.classList.remove("slider-tooltip-visible");
+    });
+    goldSlider.addEventListener("blur", () => {
+      goldTooltip.classList.remove("slider-tooltip-visible");
+    });
+  }
+
+  // --- kills slider tooltip---
+  if (killsTooltip) {
+    killsSlider.addEventListener("input", () => {
+      killsTooltip.classList.add("slider-tooltip-visible");
+    });
+    killsSlider.addEventListener("change", () => {
+      killsTooltip.classList.remove("slider-tooltip-visible");
+    });
+    killsSlider.addEventListener("blur", () => {
+      killsTooltip.classList.remove("slider-tooltip-visible");
+    });
+  }
+
   updateSim();
 }
+
