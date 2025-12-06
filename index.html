@@ -19,34 +19,38 @@
     based on team-level data aggregated from Oracle’s Elixir.
   </p>
 
-  <section id="map-filters">
-    <h2>Explore Early-Game Advantages on the Rift</h2>
-    <p class="map-caption">
-      Click a glowing beam on the map to choose which objective or stat the bar chart below shows.
-    </p>
+  <!-- 新加：左右两栏布局容器 -->
+  <section id="main-layout">
+    <!-- 左侧：地图 + 图表（用你原来的结构） -->
+    <div class="left-panel">
+      <section id="map-filters">
+        <h2>Explore by Objective</h2>
+        <p class="map-caption">
+          Click an icon on the map to switch which metric the chart shows.
+        </p>
 
-    <div class="sr-map">
-      <img src="assets/map.png" alt="Summoner's Rift map">
-      <button class="map-icon icon-gold active" data-metric="gold" aria-label="Gold Difference">
-        G
-      </button>
-      <button class="map-icon icon-dragon" data-metric="dragon" aria-label="Dragons">
-        D
-      </button>
-      <button class="map-icon icon-baron" data-metric="baron" aria-label="Baron">
-        B
-      </button>
-      <button class="map-icon icon-tower" data-metric="towers" aria-label="Towers">
-        T
-      </button>
-      <button class="map-icon icon-kills" data-metric="kills" aria-label="Kills Difference">
-        K
-      </button>
-      <button class="map-icon icon-vision" data-metric="vision" aria-label="Vision Score">
-        V
-      </button>
+        <div class="sr-map">
+          <img src="assets/map.png" alt="Summoner's Rift map">
+          <button class="map-icon icon-gold active" data-metric="gold" aria-label="Gold Difference">
+            G
+          </button>
+          <button class="map-icon icon-dragon" data-metric="dragon" aria-label="Dragons">
+            D
+          </button>
+          <button class="map-icon icon-baron" data-metric="baron" aria-label="Baron">
+            B
+          </button>
+        </div>
+      </section>
+
+      <div id="chart-container" style="display: none; margin-top: 40px;">
+        <h2 id="chart-title" style="margin-bottom: 8px;"></h2>
+        <p id="chart-desc" style="max-width: 640px; margin-bottom: 24px;"></p>
+        <div id="chart"></div>
+      </div>
     </div>
 
+<<<<<<< HEAD
     <p class="map-legend">
       <span class="lg-g">G</span> = Gold difference &nbsp;·&nbsp;
       <span class="lg-d">D</span> = Dragons &nbsp;·&nbsp;
@@ -62,6 +66,16 @@
     <p id="chart-desc" style="max-width: 640px; margin-bottom: 24px;"></p>
     <div id="chart"></div>
   </div>
+=======
+    <!-- 右侧：胜率模拟器（Win Probability Simulator） -->
+    <div class="right-panel">
+      <section id="win-sim">
+        <h2>Win Probability Simulator (First 10 Minutes)</h2>
+        <p class="sim-intro">
+          Adjust the early-game situation at 10 minutes and see how the predicted win probability changes.
+          The model is a logistic regression trained on professional matches from Oracle’s Elixir.
+        </p>
+>>>>>>> parent of 980a4f7 (Merge pull request #4 from Marcushi66/main)
 
 
 
