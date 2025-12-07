@@ -230,10 +230,10 @@ a {
 
 .lg-g { color: #facc15; }
 .lg-d { color: #60a5fa; }
-.lg-b { color: #c4b5fd; }
-.lg-t { color: #f87171; }
-.lg-k { color: #34d399; }
-.lg-v { color: #a78bfa; }
+.lg-b { color: #a78bfa;}
+.lg-t { color: #ffffff; }
+.lg-k { color: #d33434; }
+.lg-v { color: #40ff86; }
 
 /* ====== Gold Over Time Chart ====== */
 #chart-section {
@@ -338,11 +338,36 @@ a {
   gap: 0.75rem;
   font-size: 0.85rem;
   color: #d1d5db;
+  position: relative;
 }
 
 .sim-input-row input[type="range"] {
   flex: 1;
 }
+
+.slider-tooltip {
+  position: absolute;
+  top: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(156, 163, 175, 0.85);
+  font-size: 0.7rem;
+  white-space: nowrap;
+  color: #e5e7eb;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.slider-tooltip-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(2px);
+}
+
 
 .sim-radio-group {
   display: flex;
@@ -350,6 +375,13 @@ a {
   gap: 0.25rem;
   font-size: 0.85rem;
   color: #d1d5db;
+  margin-top: 0.3rem;
+}
+
+.sim-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .sim-radio-group input {
@@ -383,6 +415,13 @@ a {
 .sim-caption {
   font-size: 0.9rem;
   color: #9ca3af;
+}
+
+#sim-gold-value,
+#sim-kills-value {
+  display: inline-block;
+  width: 5ch;
+  text-align: right;
 }
 
 .content-center {

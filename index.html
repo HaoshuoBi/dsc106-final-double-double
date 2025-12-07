@@ -83,7 +83,7 @@
         <!-- Gold diff slider -->
         <div class="sim-control">
           <label for="sim-gold">
-            Gold difference at 10 min (your team − enemy)
+            Gold difference at 10 min (enemy – your team)
           </label>
           <div class="sim-input-row">
             <input
@@ -94,6 +94,8 @@
               step="500"
               value="0"
             />
+            <div class="slider-tooltip" id="sim-gold-tooltip"></div>
+
             <span id="sim-gold-value">0</span> gold
           </div>
         </div>
@@ -101,7 +103,7 @@
         <!-- Kills diff slider -->
         <div class="sim-control">
           <label for="sim-kills">
-            Kill difference at 10 min (your team − enemy)
+            Kill difference at 10 min (enemy – your team)
           </label>
           <div class="sim-input-row">
             <input
@@ -112,30 +114,30 @@
               step="1"
               value="0"
             />
+            <div class="slider-tooltip" id="sim-kills-tooltip"></div>
+
             <span id="sim-kills-value">0</span> kills
           </div>
         </div>
 
         <!-- First dragon radio -->
         <div class="sim-control">
-          <span class="sim-label">First dragon</span>
+          <label>Who secured the first dragon?</label>
+
           <div class="sim-radio-group">
-            <label>
-              <input
-                type="radio"
-                name="sim-firstdragon"
-                value="1"
-                checked
-              />
-              Your team secured first dragon
+            <label class="sim-radio">
+              <input type="radio" name="sim-firstdragon" value="your" checked />
+              <span>Your team</span>
             </label>
-            <label>
-              <input
-                type="radio"
-                name="sim-firstdragon"
-                value="0"
-              />
-              Enemy / no dragon yet
+
+            <label class="sim-radio">
+              <input type="radio" name="sim-firstdragon" value="enemy" />
+              <span>Enemy team</span>
+            </label>
+
+            <label class="sim-radio">
+              <input type="radio" name="sim-firstdragon" value="none" />
+              <span>No dragon taken</span>
             </label>
           </div>
         </div>
